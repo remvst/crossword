@@ -43,8 +43,8 @@ export class GridBuilder {
                 [
                     opening[0],
                     opening[1],
-                    vertical ? opening[0] + pickedWord.length - 1 : opening[0],
-                    vertical ? opening[1] : opening[1] + pickedWord.length - 1,
+                    vertical ? opening[0] + pickedWord.word.length - 1 : opening[0],
+                    vertical ? opening[1] : opening[1] + pickedWord.word.length - 1,
                 ],
             );
             this.dictionary.words.delete(pickedWord);

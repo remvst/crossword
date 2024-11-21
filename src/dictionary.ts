@@ -1,12 +1,20 @@
 import { Constraint } from "./constraint";
 
-export class Dictionary {
-    readonly words = new Set<string>();
+export class DictionaryItem {
+    constructor(
+        readonly word: string,
+        readonly definition: string,
+    ) {
+    }
+}
 
-    findWord(constraints: Constraint[]): string[] {
-        const res: string[] = [];
+export class Dictionary {
+    readonly words = new Set<DictionaryItem>();
+
+    findWord(constraints: Constraint[]): DictionaryItem[] {
+        const res: DictionaryItem[] = [];
         for (const word of this.words) {
-            if (!constraints.every(constraint => constraint.matches(word))) {
+            if (!constraints.every(constraint => constraint.matches(word.word))) {
                 continue;
             }
             res.push(word);
