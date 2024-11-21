@@ -13,12 +13,12 @@ export class GridBuilder {
         const openings: WordBounds[] = [];
         for (let row = 0 ; row < this.grid.rows ; row += 2) {
             for (let col = 0 ; col < this.grid.cols ; col += 2) {
-                const maxWordLength = this.grid.maxWordLength(
+                const maxWordLength = this.grid.maxWordLength([
                     row,
                     col,
                     vertical ? row + 999 : row,
                     vertical ? col : col + 999,
-                );
+                ]);
                 if (maxWordLength >= 2) {
                     openings.push([
                         row,
@@ -31,12 +31,7 @@ export class GridBuilder {
         }
 
         for (const opening of openings) {
-            const constraints = this.grid.constraints(
-                opening[0],
-                opening[1],
-                opening[2],
-                opening[3],
-            );
+            const constraints = this.grid.constraints(opening);
 
             const possibleWords = this.dictionary.findWord(constraints);
             if (!possibleWords.length) continue;
@@ -45,10 +40,12 @@ export class GridBuilder {
 
             this.grid.placeWord(
                 pickedWord,
-                opening[0],
-                opening[1],
-                vertical ? opening[0] + pickedWord.length - 1 : opening[0],
-                vertical ? opening[1] : opening[1] + pickedWord.length - 1,
+                [
+                    opening[0],
+                    opening[1],
+                    vertical ? opening[0] + pickedWord.length - 1 : opening[0],
+                    vertical ? opening[1] : opening[1] + pickedWord.length - 1,
+                ],
             );
             this.dictionary.words.delete(pickedWord);
 

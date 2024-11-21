@@ -39,18 +39,17 @@ export class Grid {
 
     placeWord(
         word: string,
-        fromRow: number,
-        fromCol: number,
-        toRow: number,
-        toCol: number,
+        bounds: WordBounds,
     ) {
-        if (fromRow !== toRow && fromCol !== toCol) {
-            throw new Error('Only horizontal or vertical constraints are supported');
-        }
+        const [fromRow, fromCol, toRow, toCol] = bounds;
 
         const length = Math.max(toRow - fromRow, toCol - fromCol) + 1;
         if (word.length !== length) {
             throw new Error('Word length does not match the placement');
+        }
+
+        for (const [row, col, charIndex] of this.iterateCells(bounds)) {
+            this.setCell(row, col, word.charAt(charIndex));
         }
 
         if (fromRow === toRow) {
@@ -61,14 +60,11 @@ export class Grid {
             this.setCell(toRow + 1, fromCol, BOUNDARY);
         }
 
-        for (const [row, col, charIndex] of this.iterateCells(fromRow, fromCol, toRow, toCol)) {
-            this.setCell(row, col, word.charAt(charIndex));
-        }
     }
 
-    maxWordLength(fromRow: number, fromCol: number, toRow: number, toCol: number) {
+    maxWordLength(bounds: WordBounds) {
         let charIndex = 0;
-        for (const [row, col, index] of this.iterateCells(fromRow, fromCol, toRow, toCol)) {
+        for (const [row, col, index] of this.iterateCells(bounds)) {
             const existingChar = this.cells[row][col];
             if (existingChar === BOUNDARY)  {
                 break;
@@ -79,12 +75,9 @@ export class Grid {
         return charIndex;
     }
 
-    * iterateCells(
-        fromRow: number,
-        fromCol: number,
-        toRow: number,
-        toCol: number,
-    ) {
+    * iterateCells(bounds: WordBounds) {
+        const [fromRow, fromCol, toRow, toCol] = bounds;
+
         if (fromRow !== toRow && fromCol !== toCol) {
             throw new Error('Only horizontal or vertical constraints are supported');
         }
@@ -97,16 +90,11 @@ export class Grid {
         }
     }
 
-    constraints(
-        fromRow: number,
-        fromCol: number,
-        toRow: number,
-        toCol: number,
-    ) {
+    constraints(bounds: WordBounds) {
         const constraints: Constraint[] = [];
 
         let maxLength = 0;
-        for (const [row, col, charIndex] of this.iterateCells(fromRow, fromCol, toRow, toCol)) {
+        for (const [row, col, charIndex] of this.iterateCells(bounds)) {
             const existingChar = this.cells[row][col];
             if (existingChar !== null) {
                 constraints.push(new ContainsCharacterConstraint(existingChar, charIndex));

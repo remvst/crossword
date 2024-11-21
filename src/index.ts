@@ -38,6 +38,8 @@ dictionary.words.add('fantastic');
 dictionary.words.add('under');
 dictionary.words.add('crab');
 dictionary.words.add('trash');
+dictionary.words.add('bed');
+dictionary.words.add('bid');
 
 const builder = new GridBuilder(new Grid(20, 20), dictionary);
 builder.build();
