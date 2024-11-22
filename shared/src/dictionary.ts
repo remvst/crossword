@@ -2,8 +2,8 @@ import { Constraint } from "./constraint";
 
 export class DictionaryItem {
     constructor(
-        readonly word: string,
-        readonly definition: string,
+        public word: string,
+        public definition: string,
     ) {
     }
 }
@@ -20,5 +20,9 @@ export class Dictionary {
             res.push(word);
         }
         return res;
+    }
+
+    clone() {
+        return new Dictionary();
     }
 }
