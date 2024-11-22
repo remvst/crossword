@@ -3,6 +3,7 @@ import {
     createHashRouter,
     RouterProvider,
 } from "react-router-dom";
+import { AnswerGridProvider } from './context/use-answer-grid';
 import { DictionaryProvider } from "./context/use-dictionary";
 import { GridProvider } from './context/use-grid';
 import { DictionaryPage } from "./pages/dictionary-page";
@@ -30,7 +31,9 @@ export function App() {
     return (
         <DictionaryProvider>
             <GridProvider>
-                <RouterProvider router={router} />
+                <AnswerGridProvider>
+                    <RouterProvider router={router} />
+                </AnswerGridProvider>
             </GridProvider>
         </DictionaryProvider>
     )

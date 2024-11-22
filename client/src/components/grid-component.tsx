@@ -1,6 +1,7 @@
 import { AnswerGrid, Grid, WordBounds } from "@remvst/crossword";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import './grid-component.css';
+import { useAnswerGrid } from "../context/use-answer-grid";
 
 function Cell(props: {
     character: string,
@@ -27,11 +28,12 @@ function BlackCell(props: {}) {
 
 export function GridComponent(props: {
     grid: Grid,
+    answer
 }) {
     const [selectedRow, setSelectedRow] = useState(0);
     const [selectedCol, setSelectedCol] = useState(0);
     const [vertical, setVertical] = useState(false);
-    const [answerGrid, setAnswerGrid] = useState(new AnswerGrid(props.grid.rows, props.grid.cols));
+    const { answerGrid, setAnswerGrid } = useAnswerGrid();
 
     const highlight = useMemo<WordBounds>(() => {
         let fromRow = selectedRow;
