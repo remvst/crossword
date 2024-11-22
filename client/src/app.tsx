@@ -6,15 +6,22 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import { GridPage } from './pages/grid-page';
+import { Root } from './root';
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <DictionaryPage />,
-    },
-    {
-        path: "/grid",
-        element: <GridPage />,
+        element: <Root />,
+        children: [
+            {
+                path: "/",
+                element: <DictionaryPage />,
+            },
+            {
+                path: "/grid",
+                element: <GridPage />,
+            },
+        ],
     },
 ]);
 
