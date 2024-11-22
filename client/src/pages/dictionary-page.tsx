@@ -1,11 +1,11 @@
 import { DictionaryItem } from "@remvst/crossword";
 import React from "react";
-import { useDictionary } from "../context/use-dictionary";
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Stack from 'react-bootstrap/stack';
+import { useDictionary } from "../context/use-dictionary";
 
 function DictionaryItemComponent(props: {
     word: string,
@@ -15,27 +15,28 @@ function DictionaryItemComponent(props: {
     onDelete?: () => void,
 }) {
     return (
-        <Row>
-            <Col>
+        <Form>
+            <InputGroup>
                 <Form.Control
                     type="text"
+                    placeholder="Word"
                     value={props.word}
-                    onChange={(e) => props.onWordChanged(e.target.value)} />
-            </Col>
+                    onChange={(e) => props.onWordChanged(e.target.value.trim().toLowerCase())} />
 
-            <Col>
+                <InputGroup.Text>:</InputGroup.Text>
+
                 <Form.Control
                     type="text"
+                    className="w-50"
+                    placeholder="Definition"
                     value={props.definition}
                     onChange={(e) => props.onDefinitionChanged(e.target.value)} />
-            </Col>
 
-            <Col md="auto">
-                {props.onDelete ? <Button variant="danger" onClick={props.onDelete}>
-                    Delete
-                </Button> : null}
-            </Col>
-        </Row>
+                <Button variant="danger" onClick={props.onDelete}>
+                    X
+                </Button>
+            </InputGroup>
+        </Form>
     );
 }
 
@@ -45,9 +46,9 @@ export function DictionaryPage() {
 
     return (
         <>
-            <h1>Dictionary</h1>
+            <p>{dictionary.words.size} words</p>
 
-            <Container>
+            <Stack gap={3}>
                 {visibleItems.map((word, index) => (
                     <DictionaryItemComponent
                         key={index}
@@ -60,9 +61,9 @@ export function DictionaryPage() {
                             updateItem(index, (item) => new DictionaryItem(item.word, definition));
                         }}
                         onDelete={() => deleteItem(index)}
-                        />
+                    />
                 ))}
-            </Container>
+            </Stack>
         </>
     );
 }

@@ -2,6 +2,8 @@
     border-collapse: collapse;
     user-select: none;
     font-family: Arial;
+    background-color: white;
+    margin: auto;
 }
 
 .grid td {
