@@ -1,6 +1,6 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Grid } from '@remvst/crossword';
 import { App } from './app';
 
 window.addEventListener('load', () => {

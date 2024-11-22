@@ -1,17 +1,26 @@
 import React from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import { Outlet, useHref } from "react-router-dom";
 
 export function Root() {
-    const navigate = useNavigate();
-
     return (<div>
-        <h1>Rémi's Cool Crossword app</h1>
+        <Navbar className="bg-body-tertiary">
+            <Container>
+                <Navbar.Brand>Rémi's Cool Crossword app</Navbar.Brand>
 
-        <button onClick={() => navigate('/')}>Dictionary</button>
-        <button onClick={() => navigate('/grid')}>Grid</button>
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Link href={useHref('/')}>Dictionary</Nav.Link>
+                        <Nav.Link href={useHref('/grid')}>Grid</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
 
-        <div>
+        <Container>
             <Outlet />
-        </div>
+        </Container>
     </div>)
 }
