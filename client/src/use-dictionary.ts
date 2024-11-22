@@ -44,17 +44,10 @@ export function createDictionaryContext() {
         save(newItems);
     }
 
-    function updateItem(index: number, update: (item: DictionaryItem) => void) {
+    function updateItem(index: number, update: (item: DictionaryItem) => DictionaryItem) {
         const newItems = items.slice();
-        if (index >= items.length) {
-            newItems.push(new DictionaryItem('', ''));
-        }
-
-        const existing = newItems[index];
-
-        const copy = new DictionaryItem(existing.word, existing.definition);
-        update(copy);
-        newItems[index] = copy;
+        const existing = newItems[index] || new DictionaryItem('', '');
+        newItems[index] = update(existing);
 
         setItems(newItems);
         save(newItems);

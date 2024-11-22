@@ -2,8 +2,8 @@ import { Constraint } from "./constraint";
 
 export class DictionaryItem {
     constructor(
-        public word: string,
-        public definition: string,
+        readonly word: string,
+        readonly definition: string,
     ) {
     }
 }

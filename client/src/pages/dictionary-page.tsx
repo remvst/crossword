@@ -63,10 +63,10 @@ export function DictionaryPage(
                             word={word.word}
                             definition={word.definition}
                             onWordChanged={(word) => {
-                                updateItem(index, (item) => item.word = word);
+                                updateItem(index, (item) => new DictionaryItem(word, item.definition));
                             }}
                             onDefinitionChanged={(definition) => {
-                                updateItem(index, (item) => item.definition = definition);
+                                updateItem(index, (item) => new DictionaryItem(item.word, definition));
                             }}
                             onDelete={() => deleteItem(index)}
                             />
