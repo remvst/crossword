@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "es2020",
+        "module": "commonjs",
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "allowJs": false,
+        "jsx": "react"
+    },
+    "include": ["./**/*"],
+    "exclude": ["node_modules"]
+}
