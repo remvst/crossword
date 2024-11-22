@@ -36,9 +36,6 @@ function DictionaryItemComponent(props: {
 
 export function DictionaryPage() {
     const { dictionary, deleteItem, updateItem } = useDictionary();
-
-    console.log(dictionary)
-
     const visibleItems = Array.from(dictionary.words).concat([new DictionaryItem('', '')]);
 
     return (

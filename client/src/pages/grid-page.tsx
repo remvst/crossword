@@ -6,10 +6,8 @@ import { useDictionary } from "../use-dictionary";
 export function GridPage() {
     const { dictionary } = useDictionary();
 
-    console.log(dictionary);
-
     const grid = useMemo(() => {
-        const builder = new GridBuilder(new Grid(20, 20), dictionary);
+        const builder = new GridBuilder(new Grid(20, 20), dictionary.clone());
         builder.build();
         return builder.grid;
     }, [dictionary]);

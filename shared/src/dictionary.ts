@@ -23,6 +23,10 @@ export class Dictionary {
     }
 
     clone() {
-        return new Dictionary();
+        const dictionary = new Dictionary();
+        for (const word of this.words) {
+            dictionary.words.add(word);
+        }
+        return dictionary;
     }
 }
