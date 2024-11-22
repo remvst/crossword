@@ -1,7 +1,7 @@
 import { Grid, GridBuilder } from "@remvst/crossword";
 import React, { useMemo, useState } from "react";
 import { GridComponent } from "../components/grid-component";
-import { useDictionary } from "../use-dictionary";
+import { useDictionary } from "../context/use-dictionary";
 
 export function GridPage() {
     const { dictionary } = useDictionary();

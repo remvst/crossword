@@ -1,6 +1,6 @@
 import { DictionaryItem } from "@remvst/crossword";
 import React from "react";
-import { useDictionary } from "../use-dictionary";
+import { useDictionary } from "../context/use-dictionary";
 
 function DictionaryItemComponent(props: {
     word: string,

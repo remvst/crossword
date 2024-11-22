@@ -1,6 +1,6 @@
 import React from 'react';
 import { DictionaryPage } from "./pages/dictionary-page";
-import { createDictionaryContext, DictionaryContext } from "./use-dictionary";
+import { createDictionaryContext, DictionaryContext } from "./context/use-dictionary";
 import {
     createHashRouter,
     RouterProvider,
