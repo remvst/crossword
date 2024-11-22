@@ -31,7 +31,9 @@ function DictionaryItemComponent(props: {
                     onInputChange={(text) => {
                         props.onCategoryChanged(text);
                     }}
+                    flip={true}
                     onChange={(selected) => {
+                        if (!selected.length) return;
                         props.onCategoryChanged(selected[0] as string || '');
                     }} />
 
