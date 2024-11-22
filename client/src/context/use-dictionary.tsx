@@ -39,7 +39,7 @@ function createDictionaryContext() {
     }
 
     const categories = useMemo(() => {
-        return Array.from(new Set(items.map(item => item.category || ''))).sort();
+        return Array.from(new Set(items.map(item => item.category || '').filter(cat => !!cat))).sort();
     }, [items]);
 
     const dictionary = useMemo(() => {
