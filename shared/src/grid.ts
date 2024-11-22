@@ -39,9 +39,20 @@ export class Grid {
         }
     }
 
+    isWithinBounds(row: number, col: number): boolean {
+        if (row < 0 || row >= this.rows) return false;
+        if (col < 0 || col >= this.cols) return false;
+        return true;
+    }
+
+    isFillable(row: number, col: number): boolean {
+        if (!this.isWithinBounds(row, col)) return false;
+        const { vertical, horizontal } = this.cells[row][col].dictionaryItems;
+        return !!(vertical || horizontal);
+    }
+
     setCell(row: number, col: number, value: string) {
-        if (row < 0 || row >= this.rows) return;
-        if (col < 0 || col >= this.cols) return;
+        if (!this.isWithinBounds(row, col)) return;
         this.cells[row][col].character = value;
     }
 
@@ -124,5 +135,35 @@ export class Grid {
 
     toPrettyString() {
         return this.cells.map(row => row.map(c => c.character || '.').join('')).join('\n');
+    }
+}
+
+export class AnswerGrid {
+    readonly cells: string[][];
+
+    constructor(readonly rows: number, readonly cols: number) {
+        this.cells = [];
+        for (let row = 0 ; row < rows ; row++) {
+            this.cells.push([]);
+            for (let col = 0 ; col < cols ; col++) {
+                this.cells[row].push(null);
+            }
+        }
+    }
+
+    setCell(row: number, col: number, value: string) {
+        if (row < 0 || row >= this.rows) return;
+        if (col < 0 || col >= this.cols) return;
+        this.cells[row][col] = value;
+    }
+
+    clone() {
+        const grid = new AnswerGrid(this.rows, this.cols);
+        for (let row = 0 ; row < this.rows ; row++) {
+            for (let col = 0 ; col < this.cols ; col++) {
+                grid.cells[row][col] = this.cells[row][col];
+            }
+        }
+        return grid;
     }
 }
