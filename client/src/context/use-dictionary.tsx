@@ -1,5 +1,5 @@
 import { Dictionary, DictionaryItem } from "@remvst/crossword";
-import { createContext, useContext, useMemo, useState } from "react";
+import React, { createContext, useContext, useMemo, useState } from "react";
 
 const DICTIONARY_KEY = 'dictionary';
 
@@ -9,7 +9,15 @@ export function useDictionary() {
     return useContext(DictionaryContext);
 }
 
-export function createDictionaryContext() {
+export function DictionaryProvider(props: React.PropsWithChildren<{}>) {
+    return (
+        <DictionaryContext.Provider value={createDictionaryContext()}>
+            {props.children}
+        </DictionaryContext.Provider>
+    );
+};
+
+function createDictionaryContext() {
     const initialItems: DictionaryItem[] = [];
     try {
         const parsed = JSON.parse(localStorage.getItem(DICTIONARY_KEY));

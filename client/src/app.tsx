@@ -1,10 +1,11 @@
 import React from 'react';
-import { DictionaryPage } from "./pages/dictionary-page";
-import { createDictionaryContext, DictionaryContext } from "./context/use-dictionary";
 import {
     createHashRouter,
     RouterProvider,
 } from "react-router-dom";
+import { DictionaryProvider } from "./context/use-dictionary";
+import { GridProvider } from './context/use-grid';
+import { DictionaryPage } from "./pages/dictionary-page";
 import { GridPage } from './pages/grid-page';
 import { Root } from './root';
 
@@ -27,8 +28,10 @@ const router = createHashRouter([
 
 export function App() {
     return (
-        <DictionaryContext.Provider value={createDictionaryContext()}>
-            <RouterProvider router={router} />
-        </DictionaryContext.Provider>
+        <DictionaryProvider>
+            <GridProvider>
+                <RouterProvider router={router} />
+            </GridProvider>
+        </DictionaryProvider>
     )
 }
