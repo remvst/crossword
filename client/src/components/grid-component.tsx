@@ -22,18 +22,25 @@ function Cell(props: {
     </td>;
 }
 
-function BlackCell(props: {}) {
+function BlackCell() {
     return <td className="black"></td>;
 }
 
 export function GridComponent(props: {
     grid: Grid,
-    answer
+    answerGrid: AnswerGrid,
+    setAnswerGrid: (grid: AnswerGrid) => void,
 }) {
     const [selectedRow, setSelectedRow] = useState(0);
     const [selectedCol, setSelectedCol] = useState(0);
     const [vertical, setVertical] = useState(false);
-    const { answerGrid, setAnswerGrid } = useAnswerGrid();
+
+    // Reset selection when the grid changes
+    useEffect(() => {
+        setSelectedRow(0);
+        setSelectedCol(0);
+        setVertical(false);
+    }, [props.grid]);
 
     const highlight = useMemo<WordBounds>(() => {
         let fromRow = selectedRow;
@@ -59,7 +66,7 @@ export function GridComponent(props: {
         }
 
         return [fromRow, fromCol, toRow, toCol];
-    }, [selectedRow, selectedCol, vertical]);
+    }, [selectedRow, selectedCol, vertical, props.grid]);
 
     function onClick(row: number, col: number) {
         let newVertical = vertical;
@@ -84,9 +91,9 @@ export function GridComponent(props: {
         const trimmed = input.trim();
         const character = trimmed.toLowerCase();
         if (character >= 'a' && character <= 'z') {
-            const newAnswerGrid = answerGrid.clone();
+            const newAnswerGrid = props.answerGrid.clone();
             newAnswerGrid.setCell(selectedRow, selectedCol, character);
-            setAnswerGrid(newAnswerGrid);
+            props.setAnswerGrid(newAnswerGrid);
 
             let newSelectedRow = selectedRow;
             let newSelectedCol = selectedCol;
@@ -105,9 +112,9 @@ export function GridComponent(props: {
         }
 
         if (input === '') {
-            const newAnswerGrid = answerGrid.clone();
+            const newAnswerGrid = props.answerGrid.clone();
             newAnswerGrid.setCell(selectedRow, selectedCol, null);
-            setAnswerGrid(newAnswerGrid);
+            props.setAnswerGrid(newAnswerGrid);
 
             let newSelectedRow = selectedRow;
             let newSelectedCol = selectedCol;
@@ -158,9 +165,9 @@ export function GridComponent(props: {
 
                                 return <Cell
                                     key={`col-${col}`}
-                                    character={answerGrid.cells[row][col]}
+                                    character={props.answerGrid.cells[row][col]}
                                     selected={selectedRow === row && selectedCol === col}
-                                    incorrect={answerGrid.cells[row][col] !== props.grid.cells[row][col].character}
+                                    incorrect={props.answerGrid.cells[row][col] !== props.grid.cells[row][col].character}
                                     highlighted={row >= highlight[0] && row <= highlight[2] && col >= highlight[1] && col <= highlight[3]}
                                     onClick={() => onClick(row, col)} />;
                             })}
