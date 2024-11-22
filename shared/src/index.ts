@@ -2,6 +2,11 @@ import { Dictionary, DictionaryItem } from "./dictionary";
 import { Grid } from "./grid";
 import { GridBuilder } from "./grid-builder";
 
+export * from './constraint';
+export * from './dictionary';
+export * from './grid';
+export * from './grid-builder';
+
 const dictionary = new Dictionary();
 dictionary.words.add(new DictionaryItem('hello', 'plz define'));
 dictionary.words.add(new DictionaryItem('there', 'plz define'));

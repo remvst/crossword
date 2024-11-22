@@ -1,6 +1,7 @@
 {
-  "name": "crossword",
+  "name": "@remvst/crossword",
   "version": "1.0.0",
+  "main": "src/index.ts",
   "scripts": {
     "start": "tsx src/index.ts"
   },
