@@ -18,7 +18,7 @@ function Cell(props: {
             props.incorrect ? 'incorrect' : '',
         ].join(' ')}
     >
-        {props.character}
+        <div>{props.character}</div>
     </td>;
 }
 
@@ -144,7 +144,9 @@ export function GridComponent(props: {
 
     return (
         <div>
-            <p>{definition}</p>
+            <div className="grid-definition">
+                <p>{definition}&nbsp;</p>
+            </div>
 
             <input
                 type="text"

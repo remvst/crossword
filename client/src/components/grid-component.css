@@ -4,15 +4,23 @@
     font-family: Arial;
     background-color: white;
     margin: auto;
+    width: 100%;
+    color: black;
+
+    table-layout: fixed;
 }
 
 .grid td {
     border: 1px solid black;
-    width: 30px;
-    height: 30px;
     text-transform: uppercase;
-    text-align: center;
-    vertical-align: middle;
+}
+
+.grid td>div {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .grid td.selected {
@@ -29,4 +37,15 @@
 
 .grid td.incorrect {
     color: red;
+}
+
+.grid-definition {
+    background-color: black;
+    padding: 12px;
+}
+
+.grid-definition p {
+    margin: 0;
+    color: white;
+    text-align: center;
 }
