@@ -6,6 +6,7 @@ export class GridBuilder {
     constructor(
         readonly grid: Grid,
         readonly dictionary: Dictionary,
+        private seed: number = 0,
     ) {
     }
 
@@ -36,7 +37,8 @@ export class GridBuilder {
             const possibleWords = this.dictionary.findWord(constraints);
             if (!possibleWords.length) continue;
 
-            const pickedWord = possibleWords[0]; // TODO improve pick
+            const pickedWord = possibleWords[this.seed % possibleWords.length];
+            this.seed++;
 
             this.grid.placeWord(
                 pickedWord,
