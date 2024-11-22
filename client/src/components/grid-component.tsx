@@ -107,7 +107,18 @@ export function GridComponent(props: {
             newAnswerGrid.setCell(selectedRow, selectedCol, null);
             setAnswerGrid(newAnswerGrid);
 
-            // TODO move cursor
+            let newSelectedRow = selectedRow;
+            let newSelectedCol = selectedCol;
+            if (vertical) {
+                newSelectedRow--;
+            } else {
+                newSelectedCol--;
+            }
+
+            if (props.grid.isFillable(newSelectedRow, newSelectedCol)) {
+                setSelectedRow(newSelectedRow);
+                setSelectedCol(newSelectedCol);
+            }
 
             return;
         }
