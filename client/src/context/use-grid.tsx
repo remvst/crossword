@@ -35,6 +35,7 @@ function createGridContext() {
     const { dictionary } = useDictionary();
 
     const grid = useMemo(() => {
+        console.log('redo grid');
         const builder = new GridBuilder(new Grid(20, 20), dictionary.clone(), seed);
         builder.build();
         return builder.grid;

@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 import { createRoot } from 'react-dom/client';
 import { App } from './app';
 

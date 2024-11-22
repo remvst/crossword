@@ -4,6 +4,7 @@ export class DictionaryItem {
     constructor(
         readonly word: string,
         readonly definition: string,
+        readonly category: string,
     ) {
     }
 }

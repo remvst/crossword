@@ -21,8 +21,8 @@ function createDictionaryContext() {
     const initialItems: DictionaryItem[] = [];
     try {
         const parsed = JSON.parse(localStorage.getItem(DICTIONARY_KEY));
-        for (const { word, definition } of parsed) {
-            initialItems.push(new DictionaryItem(word, definition));
+        for (const { word, definition, category } of parsed) {
+            initialItems.push(new DictionaryItem(word, definition, category));
         }
     } catch (err) {
         console.error(err);
@@ -32,10 +32,15 @@ function createDictionaryContext() {
 
     function save(items: DictionaryItem[]) {
         localStorage.setItem(DICTIONARY_KEY, JSON.stringify(items.map(item => ({
-            word: item.word,
-            definition: item.definition,
+            word: item.word || '',
+            definition: item.definition || '',
+            category: item.category || '',
         }))));
     }
+
+    const categories = useMemo(() => {
+        return Array.from(new Set(items.map(item => item.category || ''))).sort();
+    }, [items]);
 
     const dictionary = useMemo(() => {
         const dict = new Dictionary();
@@ -54,8 +59,17 @@ function createDictionaryContext() {
 
     function updateItem(index: number, update: (item: DictionaryItem) => DictionaryItem) {
         const newItems = items.slice();
-        const existing = newItems[index] || new DictionaryItem('', '');
+        const existing = newItems[index] || new DictionaryItem('', '', '');
         newItems[index] = update(existing);
+
+        // Avoid firing unnecessary updates
+        if (
+            newItems[index].category === existing.category &&
+            newItems[index].word === existing.word &&
+            newItems[index].definition === existing.definition
+        ) {
+            return;
+        }
 
         setItems(newItems);
         save(newItems);
@@ -63,6 +77,7 @@ function createDictionaryContext() {
 
     return {
         dictionary,
+        categories,
         updateItem,
         deleteItem,
     };
