@@ -24,6 +24,17 @@ export class MaxLengthConstraint implements Constraint {
     }
 }
 
+export class MinLengthConstraint implements Constraint {
+
+    constructor(private readonly length: number) {}
+
+    get key() { return `min-length-${this.length}`; }
+
+    matches(word: string): boolean {
+        return word.length >= this.length;
+    }
+}
+
 export class ContainsCharacterConstraint implements Constraint {
     constructor(private character: string, readonly position: number) {}
 

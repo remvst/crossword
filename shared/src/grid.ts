@@ -1,4 +1,4 @@
-import { Constraint, ContainsCharacterConstraint, MaxLengthConstraint } from "./constraint";
+import { Constraint, ContainsCharacterConstraint, MaxLengthConstraint, MinLengthConstraint } from "./constraint";
 import { DictionaryItem } from "./dictionary";
 
 const BOUNDARY = '#';
@@ -129,6 +129,7 @@ export class Grid {
         }
 
         constraints.push(new MaxLengthConstraint(maxLength));
+        constraints.push(new MinLengthConstraint(2));
 
         return constraints;
     }
