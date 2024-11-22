@@ -1,6 +1,7 @@
 import React from "react";
 import { useDictionary } from "../use-dictionary";
 import { DictionaryItem } from "@remvst/crossword";
+import { useNavigate } from "react-router-dom";
 
 function DictionaryItemComponent(props: {
     word: string,
@@ -34,16 +35,17 @@ function DictionaryItemComponent(props: {
     );
 }
 
-export function DictionaryPage(
-
-) {
+export function DictionaryPage() {
     const { dictionary, deleteItem, updateItem } = useDictionary();
 
     const visibleItems = Array.from(dictionary.words).concat([new DictionaryItem('', '')]);
+    const navigate = useNavigate();
 
     return (
         <>
             <h1>Dictionary</h1>
+
+            <button onClick={() => navigate('/grid')}>Grid</button>
 
             <h2>Words</h2>
 
