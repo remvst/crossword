@@ -8,7 +8,7 @@ export function Root() {
     const location = useLocation();
 
     return (<div>
-        <Navbar className="bg-body-tertiary">
+        <Navbar className="bg-body-tertiary" sticky="top">
             <Container>
                 <Navbar.Brand>Rémi's Cool Crossword app</Navbar.Brand>
 

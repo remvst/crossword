@@ -21,7 +21,11 @@ const router = createHashRouter([
             },
             {
                 path: "/grid",
-                element: <GridPage />,
+                element: <GridProvider>
+                    <AnswerGridProvider>
+                        <GridPage />
+                    </AnswerGridProvider>
+                </GridProvider>
             },
         ],
     },
@@ -30,11 +34,7 @@ const router = createHashRouter([
 export function App() {
     return (
         <DictionaryProvider>
-            <GridProvider>
-                <AnswerGridProvider>
-                    <RouterProvider router={router} />
-                </AnswerGridProvider>
-            </GridProvider>
+            <RouterProvider router={router} />
         </DictionaryProvider>
     )
 }
