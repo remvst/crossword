@@ -1,0 +1,16 @@
+.grid {
+    border-collapse: collapse;
+}
+
+.grid td {
+    border: 1px solid black;
+    width: 20px;
+    height: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.grid td.black {
+    background-color: black;
+}
