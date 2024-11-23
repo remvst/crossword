@@ -1,7 +1,6 @@
 import { AnswerGrid, Grid, WordBounds } from "@remvst/crossword";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import './grid-component.css';
-import { useAnswerGrid } from "../context/use-answer-grid";
 
 function Cell(props: {
     character: string,
@@ -23,7 +22,7 @@ function Cell(props: {
 }
 
 function BlackCell() {
-    return <td className="black"></td>;
+    return <td className="black"><div></div></td>;
 }
 
 export function GridComponent(props: {
