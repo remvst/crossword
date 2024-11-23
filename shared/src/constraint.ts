@@ -41,6 +41,8 @@ export class ContainsCharacterConstraint implements Constraint {
     get key() { return `contains-character-${this.character}-${this.position}`; }
 
     matches(word: string): boolean {
+        if (this.position >= word.length + 1) return true;
+        if (this.position >= word.length) return false;
         return word.charAt(this.position) === this.character;
     }
 }
