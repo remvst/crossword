@@ -1,6 +1,6 @@
 import { AnswerGrid, Dictionary, Grid, GridBuilder } from "@remvst/crossword";
 import React, { useMemo, useState } from "react";
-import { Typeahead } from "react-bootstrap-typeahead";
+import { Highlighter, Token, Typeahead } from "react-bootstrap-typeahead";
 import Button from 'react-bootstrap/Button';
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -50,6 +50,14 @@ export function GridPage() {
                     selected={selectedCategories}
                     flip={true}
                     multiple={true}
+                    renderMenuItemChildren={(option, { text }) => (
+                        <Highlighter search={text}>{option as string || '(none)'}</Highlighter>
+                    )}
+                    renderToken={(option, { onRemove }, index) => (
+                        <Token key={index} onRemove={onRemove} option={option}>
+                          {option as string || '(none)'}
+                        </Token>
+                      )}
                     onChange={(selected) => {
                         setSelectedCategories(selected as string[]);
                     }} />
