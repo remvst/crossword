@@ -139,7 +139,7 @@ export function GridComponent(props: {
     const definition = useMemo(() => {
         const { dictionaryItems } = props.grid.cells[selectedRow][selectedCol];
         return (vertical ? dictionaryItems.vertical : dictionaryItems.horizontal)?.definition;
-    }, [selectedRow, selectedCol, vertical]);
+    }, [selectedRow, selectedCol, vertical, props.grid]);
 
     return (
         <div>
