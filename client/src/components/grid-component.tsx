@@ -164,11 +164,14 @@ export function GridComponent(props: {
                                     return <BlackCell key={`col-${col}`} />
                                 }
 
+                                const expectedChar = props.grid.cells[row][col].character
+                                    .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
                                 return <Cell
                                     key={`col-${col}`}
                                     character={props.answerGrid.cells[row][col]}
                                     selected={selectedRow === row && selectedCol === col}
-                                    incorrect={props.answerGrid.cells[row][col] !== props.grid.cells[row][col].character}
+                                    incorrect={props.answerGrid.cells[row][col] !== expectedChar}
                                     highlighted={row >= highlight[0] && row <= highlight[2] && col >= highlight[1] && col <= highlight[3]}
                                     onClick={() => onClick(row, col)} />;
                             })}
