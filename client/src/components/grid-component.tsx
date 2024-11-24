@@ -164,7 +164,7 @@ export function GridComponent(props: {
                                     return <BlackCell key={`col-${col}`} />
                                 }
 
-                                const expectedChar = props.grid.cells[row][col].character
+                                const expectedChar = props.grid.cells[row][col].character.toLocaleLowerCase()
                                     .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
                                 return <Cell
