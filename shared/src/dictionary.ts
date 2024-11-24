@@ -30,4 +30,13 @@ export class Dictionary {
         }
         return dictionary;
     }
+
+    reversed() {
+        const dictionary = new Dictionary();
+        for (const { word, definition, category } of this.words) {
+            if (definition.indexOf(' ') >= 0) continue;
+            dictionary.words.add(new DictionaryItem(definition, word, category));
+        }
+        return dictionary;
+    }
 }

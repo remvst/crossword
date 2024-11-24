@@ -1,5 +1,5 @@
 import { AnswerGrid, Dictionary, Grid, GridBuilder } from "@remvst/crossword";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Highlighter, Token, Typeahead } from "react-bootstrap-typeahead";
 import Button from 'react-bootstrap/Button';
 import Form from "react-bootstrap/Form";
@@ -12,23 +12,31 @@ export function GridPage() {
 
     const [selectedCategories, setSelectedCategories] = useState<string[]>(categories);
     const [seed, setSeed] = useState<number>(0);
-    const [answerGrid, setAnswerGrid] = useState<AnswerGrid>();
+    const [answerGrid, setAnswerGrid] = useState<AnswerGrid>(new AnswerGrid(20, 20));
+    const [reversed, setReversed] = useState(false);
 
     const { dictionary } = useDictionary();
 
     const grid = useMemo(() => {
-        const subDictionary = dictionary.clone();
+        let subDictionary = dictionary.clone();
         for (const item of Array.from(dictionary.words)) {
             if (!selectedCategories.includes(item.category)) {
                 subDictionary.words.delete(item);
             }
         }
 
+        if (reversed) {
+            subDictionary = subDictionary.reversed();
+        }
+
         const builder = new GridBuilder(new Grid(20, 20), subDictionary, seed);
         builder.build();
-        setAnswerGrid(new AnswerGrid(builder.grid.rows, builder.grid.cols));
         return builder.grid;
-    }, [dictionary, seed, selectedCategories]);
+    }, [dictionary, seed, selectedCategories, reversed]);
+
+    useEffect(() => {
+        setAnswerGrid(new AnswerGrid(grid.rows, grid.cols));
+    }, [grid]);
 
     return (<>
         <GridComponent
@@ -39,6 +47,8 @@ export function GridPage() {
 
         <div className="my-2" style={{ textAlign: 'center' }}>
             <Button variant="primary" onClick={() => setSeed(seed + 1)}>New grid</Button>
+            {' '}
+            <Button variant="primary" onClick={() => setReversed(!reversed)}>Reverse dictionary</Button>
         </div>
 
         <Form>
